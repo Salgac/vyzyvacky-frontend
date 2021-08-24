@@ -1,10 +1,36 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div id="app">
+    <router-view />
+    <app-footer />
   </div>
-  <router-view />
 </template>
+
+<script>
+import AppFooter from "@/components/AppFooter.vue";
+
+export default {
+  name: "App",
+  data() {
+    return {
+      code: "#",
+      token: "",
+    };
+  },
+  mounted() {
+    if (this.token == "") {
+      //this.$router.replace({ name: "login" });
+    }
+  },
+  methods: {
+    logout() {
+      this.token = "";
+    },
+  },
+  components: {
+    AppFooter,
+  },
+};
+</script>
 
 <style lang="scss">
 #app {
@@ -15,16 +41,7 @@
   color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+body {
+  background: linear-gradient(to left, #29b6f6, #5bc3f3);
 }
 </style>
