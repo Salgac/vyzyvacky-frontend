@@ -1,18 +1,35 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+    <Header />
+    <TableComponent title="Participants" endpoint="/people" />
+    <TableComponent title="Log Entries" endpoint="/entries" />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
+import Header from "@/components/HomeHeader.vue";
+import TableComponent from "@/components/TableComponent.vue";
 
 export default defineComponent({
   name: "Home",
+  data() {
+    return {
+      token: localStorage.getItem("token"),
+    };
+  },
   components: {
-    HelloWorld,
+    Header,
+    TableComponent,
   },
 });
 </script>
+
+<style lang="scss">
+.home {
+  width: 75%;
+  padding: 1% 1% 1%;
+  margin: auto;
+  background: #ffffff;
+}
+</style>

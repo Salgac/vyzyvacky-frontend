@@ -46,8 +46,9 @@ export default {
           },
         }).then(
           (result) => {
-            this.$parent.code = result.data.code;
-            this.$parent.token = result.data.auth_token;
+            localStorage.setItem("code", result.data.game_code);
+            localStorage.setItem("password", this.input.password);
+            localStorage.setItem("token", result.data.auth_token);
             this.$router.push("Home");
           },
           (error) => {
