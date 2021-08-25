@@ -1,8 +1,22 @@
 <template>
   <div class="home">
-    <Header />
-    <TableComponent title="Participants" endpoint="/people" />
-    <TableComponent title="Log Entries" endpoint="/entries" />
+    <div class="info-header">
+      <Header />
+    </div>
+    <div class="table">
+      <div class="row">
+        <div class="left">
+          <TableComponent title="Participants" endpoint="/people" />
+        </div>
+        <div class="right">
+          <TableComponent
+            class="right"
+            title="Log Entries"
+            endpoint="/entries"
+          />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -28,8 +42,30 @@ export default defineComponent({
 <style lang="scss">
 .home {
   width: 75%;
-  padding: 1% 1% 1%;
+  padding: 1%;
   margin: auto;
   background: #ffffff;
+}
+
+.table {
+  width: 100%;
+  display: table;
+
+  .row {
+    width: 100%;
+    display: table-row;
+
+    .left {
+      padding: 0.5%;
+      width: 50%;
+      display: table-cell;
+    }
+
+    .right {
+      padding: 0.5%;
+      width: 50%;
+      display: table-cell;
+    }
+  }
 }
 </style>
