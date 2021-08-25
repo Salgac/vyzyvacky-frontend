@@ -3,7 +3,7 @@
     <h1>{{ title }}</h1>
     <table class="table-hover" v-if="dataArr">
       <thead>
-        <tr>
+        <tr class="table-head">
           <th>#</th>
           <!-- People specific fields -->
           <th v-if="arrHasKey('firstName')">First Name</th>
@@ -87,18 +87,40 @@ export default defineComponent({
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+table {
+  width: 100%;
+  background: #fafafa;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  padding: 30px;
+
+  border-spacing: 1;
+  border-radius: 10px;
+  border-collapse: collapse;
+  overflow: hidden;
+  margin: 0 auto;
+  position: relative;
+
+  thead tr {
+    color: white;
+    font-size: 25px;
+    line-height: 1.2;
+    font-weight: unset;
+    height: 60px;
+    background: #36304a;
+  }
+
+  tbody tr {
+    font-size: 20px;
+    color: black;
+    line-height: 1.2;
+    font-weight: unset;
+    height: 30px;
+
+    &:nth-child(even) {
+      background-color: #f5f5f5;
+    }
+  }
 }
 </style>
