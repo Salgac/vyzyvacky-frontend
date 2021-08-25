@@ -9,12 +9,12 @@
           <th v-if="arrHasKey('firstName')">First Name</th>
           <th v-if="arrHasKey('lastName')">Last Name</th>
           <th v-if="arrHasKey('age')">Age</th>
-          <th v-if="arrHasKey('name')">Team</th>
-          <th v-if="arrHasKey('color')">Team Color</th>
+          <th v-if="arrHasKey('teamName')">Team</th>
+          <th v-if="arrHasKey('teamColor')">Team Color</th>
           <!-- Entries specific fields -->
-          <th v-if="arrHasKey('winner_id')">Winner</th>
-          <th v-if="arrHasKey('looser_id')">Looser</th>
           <th v-if="arrHasKey('time')">Time</th>
+          <th v-if="arrHasKey('winner')">Winner</th>
+          <th v-if="arrHasKey('looser')">Looser</th>
         </tr>
       </thead>
       <tbody>
@@ -24,12 +24,12 @@
           <td v-if="item.firstName">{{ item.firstName }}</td>
           <td v-if="item.lastName">{{ item.lastName }}</td>
           <td v-if="item.age">{{ item.age }}</td>
-          <td v-if="item.name">{{ item.name }}</td>
-          <td v-if="item.color">{{ item.color }}</td>
+          <td v-if="item.teamName">{{ item.teamName }}</td>
+          <td v-if="item.teamColor">{{ item.teamColor }}</td>
           <!-- Entries specific fields -->
-          <td v-if="item.winner_id">{{ item.winner_id }}</td>
-          <td v-if="item.looser_id">{{ item.looser_id }}</td>
-          <td v-if="item.time">{{ item.time }}</td>
+          <td v-if="item.time">{{ toReadableTime(item.time) }}</td>
+          <td v-if="item.winner">{{ item.winner }}</td>
+          <td v-if="item.looser">{{ item.looser }}</td>
         </tr>
       </tbody>
     </table>
@@ -38,6 +38,7 @@
 
 <script lang="ts">
 import axios from "axios";
+import moment from "moment";
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -76,6 +77,9 @@ export default defineComponent({
     arrHasKey(keyName: string) {
       if (keyName in this.dataArr[0]) return true;
       else return false;
+    },
+    toReadableTime(timestamp: string) {
+      return moment(timestamp).format("DD.MM.YYYY, HH:mm");
     },
   },
 });
