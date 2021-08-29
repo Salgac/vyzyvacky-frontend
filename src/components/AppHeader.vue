@@ -1,10 +1,12 @@
 <template>
   <header>
-    <img src="../assets/logo.png" alt="logo" height="50" />
+    <router-link to="/home"
+      ><img src="../assets/logo.png" alt="logo" height="50"
+    /></router-link>
     <p>Vyzývačky 2.2</p>
     <nav>
       <ul>
-        <li><router-link to="#">Game setup</router-link></li>
+        <li><router-link to="/setup">Game setup</router-link></li>
         <li><router-link to="#">Participant Scoreboard</router-link></li>
         <li><router-link to="#">Team Scoreboard</router-link></li>
         <li><router-link to="/about">About</router-link></li>

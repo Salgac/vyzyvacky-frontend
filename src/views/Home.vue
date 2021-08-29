@@ -9,10 +9,12 @@
     <div class="table">
       <div class="row">
         <div class="row-50">
-          <TableComponent title="Participants" endpoint="/people" />
+          <h1>Participants</h1>
+          <TableComponent endpoint="/people" />
         </div>
         <div class="row-50">
-          <TableComponent title="Duels" endpoint="/entries" />
+          <h1>Duels</h1>
+          <TableComponent endpoint="/entries" />
         </div>
       </div>
     </div>
