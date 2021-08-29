@@ -1,19 +1,18 @@
 <template>
   <div class="home">
+    <div class="header">
+      <AppHeader />
+    </div>
     <div class="info-header">
-      <Header />
+      <HomeHeader />
     </div>
     <div class="table">
       <div class="row">
-        <div class="left">
+        <div class="row-50">
           <TableComponent title="Participants" endpoint="/people" />
         </div>
-        <div class="right">
-          <TableComponent
-            class="right"
-            title="Log Entries"
-            endpoint="/entries"
-          />
+        <div class="row-50">
+          <TableComponent title="Duels" endpoint="/entries" />
         </div>
       </div>
     </div>
@@ -22,7 +21,8 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import Header from "@/components/HomeHeader.vue";
+import AppHeader from "@/components/AppHeader.vue";
+import HomeHeader from "@/components/HomeHeader.vue";
 import TableComponent from "@/components/TableComponent.vue";
 
 export default defineComponent({
@@ -33,7 +33,8 @@ export default defineComponent({
     };
   },
   components: {
-    Header,
+    AppHeader,
+    HomeHeader,
     TableComponent,
   },
 });
@@ -55,15 +56,21 @@ export default defineComponent({
     width: 100%;
     display: table-row;
 
-    .left {
+    .row-25 {
+      padding: 0.5%;
+      width: 25%;
+      display: table-cell;
+    }
+
+    .row-50 {
       padding: 0.5%;
       width: 50%;
       display: table-cell;
     }
 
-    .right {
+    .row-75 {
       padding: 0.5%;
-      width: 50%;
+      width: 75%;
       display: table-cell;
     }
   }

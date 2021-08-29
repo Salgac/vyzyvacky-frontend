@@ -1,21 +1,40 @@
 <template>
-  <header>
-    <img src="../assets/logo.png" alt="logo" height="50" />
-    <p>Vyzývačky 2.2</p>
-    <nav>
-      <ul>
-        <li><router-link to="#">Add participants</router-link></li>
-        <li><router-link to="#">Participant Scoreboard</router-link></li>
-        <li><router-link to="#">Team Scoreboard</router-link></li>
-        <li><router-link to="/about">About</router-link></li>
-      </ul>
-    </nav>
-  </header>
-
   <div class="info">
-    <qrcode-vue :value="JSON.stringify(qrValue)" />
-    <h1>{{ gameCode }}</h1>
-    <h1>{{ password }}</h1>
+    <div class="table">
+      <div class="row">
+        <div class="row-25 qr">
+          <qrcode-vue :size="500" :value="qrValue" :margin="2" />
+          <p>{{ qrValue }}</p>
+        </div>
+        <div class="row-75 gameinfo">
+          <table>
+            <tr>
+              <th>Game code:</th>
+              <th>{{ gameCode }}</th>
+            </tr>
+            <tr>
+              <th>Password:</th>
+              <th>{{ password }}</th>
+            </tr>
+          </table>
+
+          <table>
+            <tr>
+              <td>Number of participants:</td>
+              <td>{{ participantCount }}</td>
+            </tr>
+            <tr>
+              <td>Number of duels:</td>
+              <td>{{ duelCount }}</td>
+            </tr>
+            <tr>
+              <td>Last update:</td>
+              <td>{{ updateTime }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -28,40 +47,70 @@ export default {
       gameCode: localStorage.getItem("code"),
       password: localStorage.getItem("password"),
 
-      qrValue: {
+      participantCount: 0,
+      duelCount: 0,
+      updateTime: "",
+
+      qrValue: JSON.stringify({
         c: localStorage.getItem("code"),
         p: localStorage.getItem("password"),
-      },
+      }),
     };
   },
   components: {
     QrcodeVue,
   },
+  mounted() {
+    this.getLoadTime();
+  },
+  methods: {
+    getLoadTime() {
+      const t = new Date();
+      this.updateTime =
+        t.getHours() + ":" + t.getMinutes() + ":" + t.getSeconds();
+    },
+  },
 };
 </script>
 
-<style lang="scss">
-header,
+<style scoped lang="scss">
 .info {
   display: flex;
   border-bottom: 1px solid #ccc;
-  padding: 0.5rem 1rem;
+}
+.qr {
+  vertical-align: middle;
+
+  canvas {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
 
   p {
-    margin-left: 1rem;
+    margin-top: 0;
+    padding-top: 0;
   }
+  padding-right: 10px;
 }
 
-nav {
-  margin-left: auto;
+.gameinfo {
+  text-align: left;
+  vertical-align: middle;
+  border-left: 1px solid #ccc;
 
-  ul {
-    list-style: none;
-  }
+  table {
+    margin-left: 5%;
+    padding: 10px;
 
-  ul li {
-    display: inline-flex;
-    margin-left: 1rem;
+    th {
+      font-size: 200%;
+      padding-right: 10px;
+    }
+
+    td {
+      padding-right: 10px;
+    }
   }
 }
 </style>
