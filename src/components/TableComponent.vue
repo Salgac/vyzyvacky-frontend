@@ -4,9 +4,6 @@
       <thead>
         <tr class="table-head">
           <th>#</th>
-          <!-- Team specific fields -->
-          <th v-if="arrHasKey('name')">Team Name</th>
-          <th v-if="arrHasKey('color')">Color</th>
           <!-- People specific fields -->
           <th v-if="arrHasKey('firstName')">First Name</th>
           <th v-if="arrHasKey('lastName')">Last Name</th>
@@ -17,14 +14,13 @@
           <th v-if="arrHasKey('time')">Time</th>
           <th v-if="arrHasKey('winner')">Winner</th>
           <th v-if="arrHasKey('looser')">Looser</th>
+          <!-- Scoreboard specific fields -->
+          <th v-if="arrHasKey('score')">Score</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(item, index) in dataArr" :key="item">
           <td>{{ index + 1 }}</td>
-          <!-- Team specific fields -->
-          <td v-if="item.name">{{ item.name }}</td>
-          <td v-if="item.color">{{ item.color }}</td>
           <!-- People specific fields -->
           <td v-if="item.firstName">{{ item.firstName }}</td>
           <td v-if="item.lastName">{{ item.lastName }}</td>
@@ -35,6 +31,8 @@
           <td v-if="item.time">{{ toReadableTime(item.time) }}</td>
           <td v-if="item.winner">{{ item.winner }}</td>
           <td v-if="item.looser">{{ item.looser }}</td>
+          <!-- Scoreboard specific fields -->
+          <td v-if="item.score">{{ item.score }}</td>
         </tr>
       </tbody>
     </table>
