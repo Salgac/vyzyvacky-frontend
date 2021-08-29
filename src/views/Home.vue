@@ -40,39 +40,11 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .home {
   width: 75%;
   padding: 1%;
   margin: auto;
   background: #ffffff;
-}
-
-.table {
-  width: 100%;
-  display: table;
-
-  .row {
-    width: 100%;
-    display: table-row;
-
-    .row-25 {
-      padding: 0.5%;
-      width: 25%;
-      display: table-cell;
-    }
-
-    .row-50 {
-      padding: 0.5%;
-      width: 50%;
-      display: table-cell;
-    }
-
-    .row-75 {
-      padding: 0.5%;
-      width: 75%;
-      display: table-cell;
-    }
-  }
 }
 </style>
