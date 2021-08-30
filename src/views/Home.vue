@@ -17,6 +17,9 @@
           <TableComponent endpoint="/entries" />
         </div>
       </div>
+      <div class="row">
+        <Matchmaker />
+      </div>
     </div>
   </div>
 </template>
@@ -26,6 +29,7 @@ import { defineComponent } from "vue";
 import AppHeader from "@/components/AppHeader.vue";
 import HomeHeader from "@/components/HomeHeader.vue";
 import TableComponent from "@/components/TableComponent.vue";
+import Matchmaker from "@/components/Matchmaker.vue";
 
 export default defineComponent({
   name: "Home",
@@ -38,6 +42,7 @@ export default defineComponent({
     AppHeader,
     HomeHeader,
     TableComponent,
+    Matchmaker,
   },
 });
 </script>
