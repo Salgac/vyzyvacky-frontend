@@ -22,8 +22,18 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/scoreboard",
-    name: "scoreboard",
-    component: Scoreboard
+    name: "Scoreboard",
+    component: Scoreboard,
+    props: {
+      endpoint: "/score"
+    }
+  }, {
+    path: "/teamboard",
+    name: "Teamboard",
+    component: Scoreboard,
+    props: {
+      endpoint: "/team_score"
+    }
   },
   {
     path: "/about",

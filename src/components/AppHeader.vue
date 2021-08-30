@@ -1,14 +1,18 @@
 <template>
   <header>
-    <router-link to="/home"
-      ><img src="../assets/logo.png" alt="logo" height="50"
-    /></router-link>
+    <router-link to="/home">
+      <img src="../assets/logo.png" alt="logo" height="50" />
+    </router-link>
     <p>Vyzývačky 2.2</p>
     <nav>
       <ul>
         <li><router-link to="/setup">Game setup</router-link></li>
-        <li><router-link to="/scoreboard">Scoreboard</router-link></li>
-        <li><router-link to="#">Team Scoreboard</router-link></li>
+        <li>
+          <router-link to="/scoreboard" target="_blank">Scoreboard</router-link>
+        </li>
+        <li>
+          <router-link to="/teamboard" target="_blank">Teamboard</router-link>
+        </li>
         <li><router-link to="/about">About</router-link></li>
       </ul>
     </nav>

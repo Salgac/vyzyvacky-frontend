@@ -1,6 +1,6 @@
 <template>
   <div class="scoreboard">
-    <TableComponent endpoint="/score" />
+    <TableComponent v-bind:endpoint="endpoint" />
   </div>
 </template>
 
@@ -10,6 +10,9 @@ import TableComponent from "@/components/TableComponent.vue";
 
 export default defineComponent({
   name: "Scoreboard",
+  props: {
+    endpoint: String,
+  },
   data() {
     return {
       token: localStorage.getItem("token"),
