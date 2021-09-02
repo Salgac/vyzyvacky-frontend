@@ -81,7 +81,11 @@ export default defineComponent({
       else return false;
     },
     toReadableTime(timestamp: string) {
-      return moment(timestamp).format("DD.MM.YYYY, HH:mm");
+      var time = new Date(timestamp);
+      var offset = Math.abs(time.getTimezoneOffset() / 60);
+      time.setHours(time.getHours() - offset);
+
+      return moment(time).format("DD.MM.YYYY, HH:mm");
     },
   },
 });
