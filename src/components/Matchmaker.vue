@@ -1,26 +1,35 @@
 <template>
   <div class="matchmaker">
     <h1>Create a match:</h1>
-    <input
-      name="winner"
-      type="number"
-      placeholder="Winner"
-      maxlength="20"
+    <AutoComplete
+      forceSelection
       v-model="input.winner"
+      placeholder="Winner"
+      :suggestions="filteredItems"
+      :dropdown="true"
+      :minLength="2"
+      @complete="searchNames($event)"
+      field="name"
     />
-    <input
-      name="winner"
-      type="number"
-      placeholder="Looser"
-      maxlength="20"
+    <AutoComplete
+      forceSelection
       v-model="input.looser"
+      placeholder="Looser"
+      :suggestions="filteredItems"
+      :dropdown="true"
+      :minLength="2"
+      @complete="searchNames($event)"
+      field="name"
     />
+
     <button type="button" v-on:click="submit()">Submit</button>
   </div>
 </template>
 
 <script lang="ts">
 import axios from "axios";
+import latinize from "latinize";
+import AutoComplete from "primevue/autocomplete";
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -28,16 +37,53 @@ export default defineComponent({
   data() {
     return {
       input: {
-        winner: 0,
-        looser: 0,
-        time: "",
+        winner: "",
+        looser: "",
       },
+      names: [{ name: "", id: Number }],
+      filteredItems: [{}],
     };
   },
+  mounted() {
+    this.getNames();
+  },
   methods: {
+    getNames() {
+      axios({
+        method: "GET",
+        url: "http://139.162.130.177:3000/v1/people",
+        headers: {
+          "content-type": "application/json",
+          Authorization: localStorage.getItem("token"),
+        },
+      }).then(
+        (result) => {
+          console.log(result);
+          result.data.forEach((person: any) => {
+            this.names.push({
+              name: person.lastName + " " + person.firstName,
+              id: person.id,
+            });
+          });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
     submit() {
-      this.input.time = new Date().toISOString().slice(0, 19).replace("T", " ");
-
+      const timestamp = this.getCurrentTime()
+        .toISOString()
+        .slice(0, 19)
+        .replace("T", " ");
+      var data = [
+        {
+          time: timestamp,
+          winner: (this.input.winner as any).id,
+          looser: (this.input.looser as any).id,
+        },
+      ];
+      console.log(data);
       axios({
         method: "POST",
         url: "http://139.162.130.177:3000/v1/entries",
@@ -45,19 +91,41 @@ export default defineComponent({
           "content-type": "application/json",
           Authorization: localStorage.getItem("token"),
         },
-        data: [this.input],
+        data: data,
       }).then(
         (result) => {
           console.log(result);
-          this.input.winner = 0;
-          this.input.looser = 0;
-          this.input.time = "";
+          this.input.winner = "";
+          this.input.looser = "";
         },
         (error) => {
           console.log(error);
         }
       );
     },
+    getCurrentTime(): Date {
+      var time = new Date();
+      var offset = Math.abs(time.getTimezoneOffset() / 60);
+      time.setHours(time.getHours() + offset);
+      return time;
+    },
+    searchNames(event: any) {
+      console.log(this.input);
+      if (!event.query.trim().length) {
+        this.filteredItems = [...this.names];
+      } else {
+        this.filteredItems = this.names.filter((item) => {
+          return (
+            latinize(item.name)
+              .toLowerCase()
+              .indexOf(latinize(event.query).toLowerCase()) >= 0
+          );
+        });
+      }
+    },
+  },
+  components: {
+    AutoComplete,
   },
 });
 </script>
