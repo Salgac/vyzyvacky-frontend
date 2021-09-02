@@ -16,7 +16,10 @@
         v-model="input.password"
       />
       <button type="button" v-on:click="login()">Login</button>
-      <p class="message">Not registered? <a href="#">Create an account</a></p>
+      <p class="message">
+        Not registered?
+        <router-link to="/register">Create an account</router-link>
+      </p>
     </div>
   </div>
 </template>
