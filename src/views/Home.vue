@@ -6,6 +6,9 @@
     <div class="info-header">
       <HomeHeader />
     </div>
+    <div class="row">
+      <Matchmaker />
+    </div>
     <div class="table">
       <div class="row">
         <div class="row-50">
@@ -16,9 +19,6 @@
           <h1>Duels</h1>
           <TableComponent endpoint="/entries" />
         </div>
-      </div>
-      <div class="row">
-        <Matchmaker />
       </div>
     </div>
   </div>

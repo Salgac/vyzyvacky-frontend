@@ -22,7 +22,12 @@
       field="name"
     />
 
-    <button type="button" v-on:click="submit()">Submit</button>
+    <Button
+      @click="submit()"
+      label="Submit"
+      icon="pi pi-check"
+      iconPos="right"
+    />
   </div>
 </template>
 
@@ -30,6 +35,7 @@
 import axios from "axios";
 import latinize from "latinize";
 import AutoComplete from "primevue/autocomplete";
+import Button from "primevue/button";
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -126,6 +132,22 @@ export default defineComponent({
   },
   components: {
     AutoComplete,
+    Button,
   },
 });
 </script>
+
+<style lang="scss" scoped>
+.matchmaker {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+
+  .p-autocomplete {
+    margin: 10px;
+  }
+
+  Button {
+    margin: 10px;
+  }
+}
+</style>
