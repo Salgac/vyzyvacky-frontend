@@ -1,33 +1,12 @@
 <template>
   <div class="matchmaker">
     <h1>Create a match:</h1>
-    <AutoComplete
-      forceSelection
-      v-model="input.winner"
-      placeholder="Winner"
-      :suggestions="filteredItems"
-      :dropdown="true"
-      :minLength="2"
-      @complete="searchNames($event)"
-      field="name"
-    />
-    <AutoComplete
-      forceSelection
-      v-model="input.looser"
-      placeholder="Looser"
-      :suggestions="filteredItems"
-      :dropdown="true"
-      :minLength="2"
-      @complete="searchNames($event)"
-      field="name"
-    />
+    <AutoComplete forceSelection v-model="input.winner" placeholder="Winner" :suggestions="filteredItems"
+      :dropdown="true" :minLength="2" @complete="searchNames($event)" field="name" />
+    <AutoComplete forceSelection v-model="input.looser" placeholder="Looser" :suggestions="filteredItems"
+      :dropdown="true" :minLength="2" @complete="searchNames($event)" field="name" />
 
-    <Button
-      @click="submit()"
-      label="Submit"
-      icon="pi pi-check"
-      iconPos="right"
-    />
+    <Button @click="submit()" label="Submit" icon="pi pi-check" iconPos="right" />
   </div>
 </template>
 
@@ -57,7 +36,7 @@ export default defineComponent({
     getNames() {
       axios({
         method: "GET",
-        url: "http://139.162.130.177:3000/v1/people",
+        url: "http://139.162.130.177:5000/v1/people",
         headers: {
           "content-type": "application/json",
           Authorization: localStorage.getItem("token"),
@@ -92,7 +71,7 @@ export default defineComponent({
       console.log(data);
       axios({
         method: "POST",
-        url: "http://139.162.130.177:3000/v1/entries",
+        url: "http://139.162.130.177:5000/v1/entries",
         headers: {
           "content-type": "application/json",
           Authorization: localStorage.getItem("token"),

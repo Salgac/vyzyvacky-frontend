@@ -8,25 +8,25 @@
           <th v-if="arrHasKey('firstName')">First Name</th>
           <th v-if="arrHasKey('lastName')">Last Name</th>
           <th v-if="arrHasKey('age')">Age</th>
-          <th v-if="arrHasKey('teamName')">Team</th>
-          <th v-if="arrHasKey('teamColor')">Team Color</th>
-          <!-- Entries specific fields -->
-          <th v-if="arrHasKey('time')">Time</th>
-          <th v-if="arrHasKey('winner')">Winner</th>
-          <th v-if="arrHasKey('looser')">Looser</th>
-          <!-- Scoreboard specific fields -->
-          <th v-if="arrHasKey('score')">Score</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(item, index) in dataArr" :key="item">
-          <td>{{ index + 1 }}</td>
-          <!-- People specific fields -->
-          <td v-if="item.firstName">{{ item.firstName }}</td>
-          <td v-if="item.lastName">{{ item.lastName }}</td>
-          <td v-if="item.age">{{ item.age }}</td>
-          <td v-if="item.teamName">{{ item.teamName }}</td>
-          <td v-if="item.teamColor">{{ item.teamColor }}</td>
+                <th v-if="arrHasKey('teamName')">Team</th>
+                <!-- Entries specific fields -->
+                <th v-if="arrHasKey('time')">Time</th>
+                <th v-if="arrHasKey('winner')">Winner</th>
+                <th v-if="arrHasKey('looser')">Looser</th>
+                <!-- Scoreboard specific fields -->
+                <th v-if="arrHasKey('score')">Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(item, index) in dataArr" :key="index">
+                <td>{{ index + 1 }}</td>
+                <!-- People specific fields -->
+                <td v-if="item.firstName">{{ item.firstName }}</td>
+                <td v-if="item.lastName">{{ item.lastName }}</td>
+                <td v-if="item.age">{{ item.age }}</td>
+                <td v-if="item.teamName" class="colorBox" :style="{ 'background': `${item.teamColor}` }">
+                  {{ item.teamName }}
+                </td>
           <!-- Entries specific fields -->
           <td v-if="item.time">{{ toReadableTime(item.time) }}</td>
           <td v-if="item.winner">{{ item.winner }}</td>
@@ -48,10 +48,11 @@ export default defineComponent({
   name: "Table",
   props: {
     endpoint: String,
+    refresh: Boolean,
   },
   data() {
     return {
-      dataArr: [{}],
+      dataArr: [{}] as any[],
     };
   },
   beforeMount() {
@@ -59,9 +60,20 @@ export default defineComponent({
   },
   methods: {
     init() {
+      this.getData();
+
+      //refresh?
+      if (this.refresh) {
+        //30 seconds
+        setInterval(() => {
+          this.getData;
+        }, 30000)
+      }
+    },
+    getData() {
       axios({
         method: "GET",
-        url: "http://139.162.130.177:3000/v1" + this.endpoint,
+        url: "http://139.162.130.177:5000/v1" + this.endpoint,
         headers: {
           "content-type": "application/json",
           Authorization: localStorage.getItem("token"),
@@ -128,5 +140,11 @@ table {
       background-color: #f5f5f5;
     }
   }
+}
+
+.colorBox {
+  width: 300px;
+  height: 100%;
+  border: solid grey 1px;
 }
 </style>

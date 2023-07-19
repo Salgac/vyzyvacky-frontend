@@ -7,58 +7,29 @@
         <!-- Team -->
         <div v-if="title == 'Teams'" class="p-fluid">
           <span class="p-float-label">
-            <InputText
-              id="teamName"
-              name="teamName"
-              type="text"
-              maxlength="10"
-              v-model="team.name"
-            />
-            <label for="teamName">Team name</label>
-          </span>
-          <ColorPicker name="color" v-model="team.color" />
-          <Button label="Add team" v-on:click="send(team)" />
-        </div>
-        <!-- Participants -->
-        <div v-else class="p-fluid">
-          <span class="p-float-label">
-            <InputText
-              id="firstName"
-              name="firstName"
-              type="text"
-              maxlength="10"
-              v-model="participant.firstName"
-            />
-            <label for="firstName">First name</label>
-          </span>
-          <span class="p-float-label">
-            <InputText
-              id="lastName"
-              name="lastName"
-              type="text"
-              maxlength="20"
-              v-model="participant.lastName"
-            />
-            <label for="lastName">Last name</label>
-          </span>
-          <span class="p-float-label">
-            <InputNumber
-              id="age"
-              :min="3"
-              :max="100"
-              v-model="participant.age"
-            />
-            <label for="age">Age</label>
-          </span>
-          <span class="p-float-label">
-            <Dropdown
-              id="team"
-              name="team"
-              :options="teams"
-              optionLabel="teamName"
-              optionValue="teamName"
-              v-model="participant.team"
-            />
+                  <InputText id="teamName" name="teamName" type="text" maxlength="30" v-model="team.name" />
+                  <label for="teamName">Team name</label>
+                </span>
+                <ColorPicker name="color" v-model="team.color" />
+                <Button label="Add team" v-on:click="send(hotfix(team))" />
+              </div>
+              <!-- Participants -->
+              <div v-else class="p-fluid">
+                <span class="p-float-label">
+                  <InputText id="firstName" name="firstName" type="text" maxlength="10" v-model="participant.firstName" />
+                  <label for="firstName">First name</label>
+                </span>
+                <span class="p-float-label">
+                  <InputText id="lastName" name="lastName" type="text" maxlength="20" v-model="participant.lastName" />
+                  <label for="lastName">Last name</label>
+                </span>
+                <span class="p-float-label">
+                  <InputNumber id="age" :min="3" :max="100" v-model="participant.age" />
+                  <label for="age">Age</label>
+                </span>
+                <span class="p-float-label">
+                  <Dropdown id="team" name="team" :options="teams" optionLabel="teamName" optionValue="teamName"
+                    v-model="participant.team" />
             <label for="team">Team</label>
           </span>
           <Button type="button" v-on:click="send([participant])">Add</Button>
@@ -100,7 +71,7 @@ export default defineComponent({
       participant: {
         firstName: "",
         lastName: "",
-        age: null,
+        age: 0,
         team: "",
       },
       //teams array
@@ -114,10 +85,13 @@ export default defineComponent({
     this.populateSelect();
   },
   methods: {
+    hotfix(team: any) {
+      return { name: team.name, color: "#" + team.color };
+    },
     send(object: unknown) {
       axios({
         method: "POST",
-        url: "http://139.162.130.177:3000/v1" + this.endpoint,
+        url: "http://139.162.130.177:5000/v1" + this.endpoint,
         headers: {
           "content-type": "application/json",
           Authorization: localStorage.getItem("token"),
@@ -136,7 +110,7 @@ export default defineComponent({
     populateSelect() {
       axios({
         method: "GET",
-        url: "http://139.162.130.177:3000/v1/teams",
+        url: "http://139.162.130.177:5000/v1/teams",
         headers: {
           "content-type": "application/json",
           Authorization: localStorage.getItem("token"),
@@ -168,6 +142,7 @@ export default defineComponent({
   width: 100%;
   border-bottom: 1px solid #ccc;
 }
+
 .row {
   display: flex;
 }

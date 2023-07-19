@@ -17,7 +17,7 @@
         </div>
         <div class="row-50">
           <h1>Duels</h1>
-          <TableComponent endpoint="/entries" />
+          <TableComponent endpoint="/entries" refresh />
         </div>
       </div>
     </div>

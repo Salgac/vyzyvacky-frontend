@@ -2,25 +2,9 @@
   <div class="register">
     <div class="form">
       <h1>Vyzývačky</h1>
-      <input
-        name="code"
-        type="text"
-        placeholder="game code"
-        maxlength="6"
-        v-model="input.code"
-      />
-      <input
-        name="password"
-        type="password"
-        placeholder="password"
-        v-model="input.password"
-      />
-      <input
-        name="password"
-        type="password"
-        placeholder="repeat password"
-        v-model="input.password_confirmation"
-      />
+      <input name="code" type="text" placeholder="game code" maxlength="6" v-model="input.code" />
+      <input name="password" type="password" placeholder="password" v-model="input.password" />
+      <input name="password" type="password" placeholder="repeat password" v-model="input.password_confirmation" />
       <button type="button" v-on:click="login()">Register</button>
       <p class="message">
         Already registered?
@@ -49,7 +33,7 @@ export default {
       if (this.input.code != "" && this.input.password != "") {
         axios({
           method: "POST",
-          url: "http://139.162.130.177:3000/v1/sign_up",
+          url: "http://139.162.130.177:5000/v1/sign_up",
           data: this.input,
           headers: {
             "content-type": "application/json",
