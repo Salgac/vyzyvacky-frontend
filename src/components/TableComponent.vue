@@ -49,6 +49,7 @@ export default defineComponent({
   props: {
     endpoint: String,
     refresh: Boolean,
+    filter: Boolean
   },
   data() {
     return {
@@ -81,16 +82,26 @@ export default defineComponent({
       }).then(
         (result) => {
           console.log(result);
-          this.dataArr = result.data;
+          this.dataArr = this.filterData(result.data);
         },
         (error) => {
           console.log(error);
         }
       );
     },
+    filterData(data: any[]) {
+      if (this.filter) {
+        return data.filter(d =>
+          d.teamName !== "Veľrada" &&
+          d.teamName !== "Animátori" &&
+          d.teamName !== "Makači" &&
+          d.teamName !== "Inštruktori"
+        );
+      }
+      return data;
+    },
     arrHasKey(keyName: string) {
-      if (keyName in this.dataArr[0]) return true;
-      else return false;
+      return this.dataArr[0] ? (keyName in this.dataArr[0]) : false;
     },
     toReadableTime(timestamp: string) {
       var time = new Date(timestamp);

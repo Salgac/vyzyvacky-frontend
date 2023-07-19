@@ -1,6 +1,6 @@
 <template>
   <div class="scoreboard">
-    <TableComponent v-bind:endpoint="endpoint" refresh />
+      <TableComponent v-bind:endpoint="endpoint" refresh filter/>
   </div>
 </template>
 
