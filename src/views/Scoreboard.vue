@@ -29,6 +29,6 @@ export default defineComponent({
   display: block;
   width: 80%;
   margin: auto;
-  margin-top: 5%;
+  margin-top: 0.5%;
 }
 </style>
